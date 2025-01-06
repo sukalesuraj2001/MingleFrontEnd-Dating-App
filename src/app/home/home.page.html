@@ -1,20 +1,35 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content class="container">
+  <!-- Swiper -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let slide of slideItems">
+        <img [src]="slide.image" [alt]="slide.text" />
+      </div>
+    </div>
   </div>
+
+  <!-- Text below the Swiper -->
+  <div class="slide-text">
+
+    <h1>{{slideText.heading}}</h1>
+    <p>{{ slideText.text }}</p>
+  </div>
+  <!-- Custom Paginator -->
+  <div class="paginator">
+    <div class="dots">
+      <span class="dot" *ngFor="let dot of slideItems; let i = index" [class.active]="i === activeSlideIndex"></span>
+    </div>
+
+  </div>
+
+  <ion-col>
+    <div class="button">
+      <ion-button expand="block" fill="clear" class="custom-button" routerLink="/signup">Create an account</ion-button>
+    </div>
+    <div class="already-account">
+      <p>Already have an account? <b><a href="#">Sign In</a></b></p>
+    </div>
+  </ion-col>
+ 
+  
 </ion-content>

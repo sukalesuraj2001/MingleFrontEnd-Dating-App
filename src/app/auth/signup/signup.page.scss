@@ -1,0 +1,208 @@
+// Global Variables
+$primary-color: #E94057;
+$secondary-color: #555;
+$light-gray: #e3e3e3;
+$text-color: #555;
+$text-color-darkMode: white;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-medium: 17px;
+$font-size-large: 19px;
+$button-radius: 8px;
+$icon-size: 30px;
+
+// Global mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button-style($bg-color, $text-color) {
+    background-color: $bg-color;
+    color: $text-color;
+    border-radius: $button-radius;
+    padding: 10px 20px;
+
+    &:hover {
+        background-color: darken($bg-color, 10%);
+    }
+}
+
+// Content Styles
+
+.logo-image {
+    @include flex-center;
+    margin-top: 20%;
+
+    ion-img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+}
+
+.container-wrapper {
+    margin-top: 18%;
+}
+
+.text {
+    text-align: center;
+
+    h4 {
+        font-weight: bold;
+        font-size: $font-size-large;
+    }
+}
+
+.button {
+    margin-top: 33px;
+
+    .custom-button {
+        margin: 10px 30px; // Adjust left and right margin
+        @include button-style($primary-color, white);
+    }
+}
+
+
+.phone-number {
+    text-align: center;
+
+    h5 {
+        font-size: $font-size-medium;
+        font-weight: 500;
+        color: $primary-color;
+        margin-top: 10%;
+    }
+}
+
+// Continue-with section
+.continue-with {
+    @include flex-center;
+    flex-direction: row;
+    margin-top: 11%;
+
+    .left,
+    .right {
+        flex: 1;
+    }
+
+    .left hr,
+    .right hr {
+        border: none;
+        border-top: 1px solid rgb(159, 157, 157);
+        height: 1px;
+        width: 73%;
+    }
+
+    .left hr {
+        margin-left: 30px;
+    }
+
+    .right hr {
+        margin-right: 30px;
+    }
+
+    .signup-with {
+        margin: 0 10px;
+        font-weight: bold;
+        font-size: $font-size-small;
+        color: $text-color;
+    }
+}
+
+// Signup Icons section
+.signup-icons {
+    @include flex-center;
+    flex-direction: row;
+    margin: 0 20px;
+    margin-top: 12%;
+
+    .icons {
+        @include flex-center;
+        margin: 0 15px;
+        padding: 10px;
+        border: 2px solid $light-gray;
+        background-color: white;
+        border-radius: 0%;
+
+        ion-img {
+            width: $icon-size;
+            height: $icon-size;
+            object-fit: contain;
+        }
+    }
+}
+
+// Last Wrapper Section
+.last-wrapper {
+    @include flex-center;
+    flex-direction: row;
+    margin-top: 8% !important;
+    margin: 0 20px;
+}
+
+.text {
+    margin: 0 15px;
+    font-size: $font-size-small;
+    color: $primary-color;
+}
+
+
+// Dark Mode Styles
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #eaeaea;
+    }
+
+
+    .text h4 {
+        color: $text-color-darkMode;
+    }
+
+    .button {
+        .custom-button {
+            background-color: $primary-color;
+            color: white;
+            border-radius: $button-radius;
+
+            &:hover {
+                background-color: darken($primary-color, 10%);
+            }
+        }
+    }
+
+    .phone-number h5 {
+        color: $text-color-darkMode;
+    }
+
+    .continue-with {
+
+        .left hr,
+        .right hr {
+            border-top: 1px solid #bbb;
+        }
+
+        .signup-with {
+            color: #eaeaea;
+        }
+    }
+
+    .signup-icons {
+        .icons {
+            border-color: #444;
+            background-color: #222;
+
+            ion-img {
+                // filter: invert(1);
+            }
+        }
+    }
+
+    .last-wrapper {
+        .text {
+            color: $text-color-darkMode;
+        }
+    }
+}

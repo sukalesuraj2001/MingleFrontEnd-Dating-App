@@ -1,0 +1,50 @@
+<ion-content [fullscreen]="true">
+  <form [formGroup]="mobileForm" (ngSubmit)="onSubmit()">
+    <ion-row>
+      <ion-col>
+        <div class="main-heading">
+          <div class="heading">
+            <h3>My Mobile</h3>
+          </div>
+          <div class="text">
+            <p>Please enter your valid phone number. We will send you a 4-digit code to verify your account.</p>
+          </div>
+        </div>
+
+        <div class="input-field">
+          <div class="input-wrapper">
+            <select formControlName="countryCode" class="country-code">
+              <option value="+1" data-icon="us.png">+1</option>
+              <option value="+44" data-icon="uk.png">+44</option>
+              <option value="+91" data-icon="in.png" selected>+91</option>
+            </select>
+
+            <input type="tel" class="mobile-number-input" placeholder="Enter mobile number"
+              formControlName="mobileNumber" />
+          </div>
+        </div>
+
+        @if(mobileForm.invalid && (mobileForm.dirty || mobileForm.touched)){
+        <div class="validation-errors">
+          @if(mobileForm.get('mobileNumber')?.hasError('required')){
+
+          <div>
+            Mobile number is required.
+          </div>
+          }
+          @if(mobileForm.get('mobileNumber')?.hasError('pattern')){
+
+          <div>
+            Please enter a valid mobile number.
+          </div>
+          }
+        </div>
+        }
+        <div class="button">
+          <ion-button expand="block" fill="clear" class="custom-button" type="submit"
+            [disabled]="mobileForm.invalid">Continue with email</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

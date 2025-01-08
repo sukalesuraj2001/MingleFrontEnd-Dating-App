@@ -1,0 +1,118 @@
+$primary-color: #E94057;
+
+// Global Variables
+$primary-color: #E94057;
+$secondary-color: #555;
+$light-gray: #e3e3e3;
+$text-color: #555;
+$text-color-darkMode: white;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-medium: 17px;
+$font-size-large: 19px;
+$button-radius: 8px;
+$icon-size: 30px;
+
+// Global mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  border-radius: $button-radius;
+  padding: 10px 20px;
+
+  &:hover {
+    background-color: darken($bg-color, 10%);
+  }
+}
+
+.main-heading {
+  margin-top: 20%;
+  margin-left: 11%;
+
+  h3 {
+    font-weight: bold;
+  }
+
+  p {
+    color: grey;
+  }
+}
+
+
+// input section scss 
+.input-field {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+  // margin-left: 9%;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 0.1px solid rgb(229, 228, 228);
+  border-radius: 8px;
+  padding: 5px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.country-code {
+  border: none;
+  background: none;
+  font-size: 14px;
+  padding: 5px;
+  margin-right: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+.mobile-number-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.button {
+  margin-top: 33px;
+
+  .custom-button {
+    margin: 10px 30px;
+    @include button-style($primary-color, white);
+  }
+}
+
+// Styles for form validation errors
+.validation-errors {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 11%;
+
+}
+
+.validation-errors div {
+  margin-bottom: 5px;
+}
+
+// Style for invalid form controls
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: red;
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+// Style for valid form controls 
+input.ng-valid.ng-touched,
+select.ng-valid.ng-touched {
+  border-color: green;
+  box-shadow: 0 0 5px rgba(0, 128, 0, 0.5);
+}

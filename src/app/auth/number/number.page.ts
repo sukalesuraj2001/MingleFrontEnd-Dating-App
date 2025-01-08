@@ -1,8 +1,8 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-number',
@@ -11,16 +11,17 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
 })
-export class NumberPage implements OnInit {
+export class NumberPage implements OnInit, OnDestroy {
   mobileForm!: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.initalizeMobileNumber();
+    this.initializeMobileNumber();
   }
+
   // Initialize the form group with validation
-  initalizeMobileNumber() {
+  initializeMobileNumber() {
     this.mobileForm = this.fb.group({
       countryCode: ['+91', Validators.required],
       mobileNumber: ['', [
@@ -40,4 +41,9 @@ export class NumberPage implements OnInit {
     }
   }
 
+  // Cleanup when component is destroyed (if needed in future)
+  ngOnDestroy() {
+    // You can perform any cleanup here if needed, e.g., unsubscribing from observables
+    console.log('Component destroyed');
+  }
 }

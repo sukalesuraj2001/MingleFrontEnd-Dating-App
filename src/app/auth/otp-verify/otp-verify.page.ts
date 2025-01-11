@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 
@@ -18,6 +19,7 @@ export class OtpVerifyPage implements OnInit, OnDestroy {
   otpForm!: FormGroup;
   private fb = inject(FormBuilder);
   private navController = inject(NavController);
+  private router = inject(Router);
 
   constructor() {}
 
@@ -94,6 +96,7 @@ export class OtpVerifyPage implements OnInit, OnDestroy {
     if (this.otpForm.valid) {
       const otpValue = this.otpControls.value.join('');
       console.log('Entered OTP:', otpValue);
+      this.router.navigate(['/profile'])
       // Add your verification logic here
     }
   }

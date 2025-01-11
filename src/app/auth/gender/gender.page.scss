@@ -1,0 +1,73 @@
+// Global Variables
+$primary-color: #E94057;
+$secondary-color: #555;
+$light-gray: #e3e3e3;
+$text-color: #555;
+$text-color-darkMode: white;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-medium: 17px;
+$font-size-large: 19px;
+$button-radius: 8px;
+$icon-size: 30px;
+
+// Global mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button-style($bg-color, $text-color) {
+    background-color: $bg-color;
+    color: $text-color;
+    border-radius: $button-radius;
+    padding: 10px 20px;
+
+    &:hover {
+        background-color: darken($bg-color, 10%);
+    }
+}
+
+
+.button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+
+    margin: 30px 25px 0px 10px;
+    color: #E94057;
+    // --padding: 4px;
+}
+.content-heading{
+    margin-left: 30px;
+    margin-top: 10%;
+    h1{
+
+        font-weight: bold;
+    }
+}
+.gender-select-option{
+    margin-top: 10%;
+    ion-list{
+        background: none;
+    }
+
+}
+.radio-group{
+    ion-item{
+        margin: 0px 20px 20px;
+        border: 0.1px solid #adafbb;
+        border-radius: 16px;
+    }
+}
+.button {
+    margin-top: 20%;
+
+    .custom-button {
+        margin: 10px 20px; // Adjust left and right margin
+        @include button-style($primary-color, white);
+    }
+}

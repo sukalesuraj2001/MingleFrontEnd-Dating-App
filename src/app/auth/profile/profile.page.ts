@@ -2,20 +2,22 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, RouterModule]
 })
 export class ProfilePage implements OnInit {
   profileForm!: FormGroup; // Reactive form group
   isModalOpen = false;
   selectedDate: string = '';
   avatarUrl: any;
-  private fb = inject(FormBuilder)
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   constructor() {
 
@@ -62,13 +64,14 @@ export class ProfilePage implements OnInit {
       month: '2-digit',
       year: 'numeric',
     });
-    this.profileForm.get('birthDate')?.setValue(this.selectedDate); 
+    this.profileForm.get('birthDate')?.setValue(this.selectedDate);
     this.closeModal();
   }
 
   onSubmit() {
     if (this.profileForm.valid) {
-      console.log('Form Data:', this.profileForm.value); 
+      console.log('Form Data:', this.profileForm.value);
+      this.router.navigate(['/gender'])
     } else {
       console.log('Form is invalid');
     }

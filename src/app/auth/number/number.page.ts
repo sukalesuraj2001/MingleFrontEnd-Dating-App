@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,8 +14,9 @@ import { IonicModule } from '@ionic/angular';
 })
 export class NumberPage implements OnInit {
   mobileForm!: FormGroup;
-
-  constructor(private fb: FormBuilder) { }
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  constructor() { }
 
   ngOnInit() {
     this.initalizeMobileNumber();
@@ -35,6 +37,7 @@ export class NumberPage implements OnInit {
     if (this.mobileForm.valid) {
       const fullMobileNumber = this.mobileForm.value.countryCode + this.mobileForm.value.mobileNumber;
       console.log('Mobile Number with Country Code:', fullMobileNumber);
+      this.router.navigate(['/otp-verify'])
     } else {
       console.log('Form is invalid');
     }

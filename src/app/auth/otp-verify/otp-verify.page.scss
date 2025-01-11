@@ -1,0 +1,146 @@
+// Variables for theme customization
+$otp-input-width: 50px;
+$otp-input-height: 50px;
+$otp-input-font-size: 20px;
+$otp-border-color: #E94057;
+$otp-filled-bg: #e94057; 
+$otp-focus-border-color: #007bff;
+$otp-focus-shadow-color: rgba(0, 123, 255, 0.25);
+
+$primary-color: #E94057;
+
+// Global Variables
+$primary-color: #E94057;
+$secondary-color: #555;
+$light-gray: #e3e3e3;
+$text-color: #555;
+$text-color-darkMode: white;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-medium: 17px;
+$font-size-large: 19px;
+$button-radius: 8px;
+$icon-size: 30px;
+
+// Global mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  border-radius: $button-radius;
+  // padding: 10px 20px;
+
+  &:hover {
+    background-color: darken($bg-color, 10%);
+  }
+}
+
+
+.custom-back-btn {
+  --border: 2px solid rgb(239, 229, 229);
+  --border-radius: 8px;
+  --padding: 4px;
+  --background: rgba(255, 255, 255, 0.2);
+  color: #E94057;
+  margin: 29px 22px;
+}
+
+.custom-back-btn::part(native) {
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  background: var(--background);
+}
+
+.verify-time-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 20px;
+}
+
+.timer {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.content {
+  margin-bottom: 15px;
+}
+
+
+
+// OTP Container Styles
+.otp-container {
+  display: flex;
+  gap: 12px; // Adjust spacing between inputs
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
+
+// OTP Input Styles
+.otp-input {
+  width: $otp-input-width;
+  height: $otp-input-height;
+  text-align: center;
+  font-size: $otp-input-font-size;
+  border: 1px solid $otp-border-color;
+  border-radius: 8px; // Rounded corners
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+
+  &.filled {
+    background-color: $otp-filled-bg; // Light red background when filled
+    color: white;
+  }
+
+  &:focus {
+    border-color: $otp-focus-border-color;
+    box-shadow: 0 0 8px $otp-focus-shadow-color;
+  }
+
+  &:hover {
+    border-color: lighten($otp-focus-border-color, 20%);
+  }
+}
+
+
+
+// Responsive Design
+@media (max-width: 768px) {
+  .otp-container {
+    gap: 8px;
+  }
+
+  .otp-input {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    margin: 0px 10px;
+    height: 50px;
+  }
+
+ 
+}
+
+.button {
+  // margin-top: 33px;
+
+  .custom-button {
+    // margin: 10px 10px;
+    @include button-style($primary-color, white);
+  }
+}
+.resend{
+  text-decoration: none;
+}

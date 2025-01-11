@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true">
+  <ion-row>
+    <ion-col>
+      <div class="button-wrapper">
+        <div class="back-btn">
+          <ion-buttons slot="start">
+            <ion-back-button class="custom-back-btn" defaultHref="#" (click)="goBack()"></ion-back-button>
+          </ion-buttons>
+        </div>
+        <div class="skip-btn">
+          <div class="skip-btn">
+            <p>Skip</p>
+          </div>
+        </div>
+      </div>
+      <div class="content-heading">
+        <h1>I am a</h1>
+      </div>
+      <div class="gender-select-option">
+        <form (ngSubmit)="onSubmit()">
+          <ion-list>
+            <ion-radio-group [(ngModel)]="selectedGender" name="gender" class="radio-group">
+              <ion-item>
+                <ion-radio value="Women">Women</ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-radio value="Men">Men</ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-radio value="Other">Other</ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+      
+          <div class="button">
+            <ion-button type="submit" expand="block" fill="clear" class="custom-button">Continue</ion-button>
+          </div>
+        </form>
+      </div>
+      
+
+    </ion-col>
+  </ion-row>
+</ion-content>

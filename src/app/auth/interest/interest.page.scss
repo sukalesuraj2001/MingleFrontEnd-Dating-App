@@ -1,0 +1,81 @@
+// Global Variables
+$primary-color: #E94057;
+$secondary-color: #555;
+$light-gray: #e3e3e3;
+$text-color: #555;
+$text-color-darkMode: white;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-medium: 17px;
+$font-size-large: 19px;
+$button-radius: 8px;
+$icon-size: 30px;
+
+// Global mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button-style($bg-color, $text-color) {
+    background-color: $bg-color;
+    color: $text-color;
+    border-radius: $button-radius;
+    padding: 10px 20px;
+
+    &:hover {
+        background-color: darken($bg-color, 10%);
+    }
+}
+
+
+.button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+
+    margin: 30px 25px 0px 10px;
+    color: #E94057;
+    // --padding: 4px;
+}
+.heading-content{
+    margin-left: 30px;
+    p{
+        // color: #;
+        font-size: 13px;
+    }
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+    gap: 10px; /* Space between items */
+    max-width: 300px; /* Adjust as needed */
+    margin-left: 8%;
+    margin-top: 30px;
+  }
+  
+  .interest {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .interest.selected {
+    background-color: red;
+    color: white;
+  }
+  .button {
+    margin-top: 20%;
+
+    .custom-button {
+        margin: 10px 10px; // Adjust left and right margin
+        @include button-style($primary-color, white);
+    }
+}

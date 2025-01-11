@@ -1,0 +1,112 @@
+// Global Variables
+$primary-color: #E94057;
+$secondary-color: #555;
+$light-gray: #e3e3e3;
+$text-color: #555;
+$text-color-darkMode: white;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-medium: 17px;
+$font-size-large: 19px;
+$button-radius: 8px;
+$icon-size: 30px;
+
+// Global mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button-style($bg-color, $text-color) {
+    background-color: $bg-color;
+    color: $text-color;
+    border-radius: $button-radius;
+    padding: 10px 20px;
+
+    &:hover {
+        background-color: darken($bg-color, 10%);
+    }
+}
+
+
+.profile-wrapper {
+    // margin-right: 30px; 
+}
+
+.skip-btn {
+    float: right;
+    margin-right: 30px;
+    margin-top: 4%;
+
+    p {
+        color: #e94057;
+    }
+}
+
+.heading {
+    margin: 0px 35px;
+
+    h1 {
+        font-weight: bold;
+    }
+}
+
+.profile-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15%;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-form {
+    ion-input {
+
+        margin-left: 20px;
+        width: 90%;
+        margin-top: 20px;
+        // border-radius: 50%;
+        // border: 2px solid grey;
+    }
+}
+
+
+.custom-bottom-modal {
+    --height: auto;
+    --max-height: 50%; /* Adjust modal height as needed */
+    --border-radius: 16px 16px 0 0; /* Rounded top corners */
+    --transform: translateY(100%);
+    --transition: transform 0.3s ease-in-out;
+    bottom: 0;
+    position: absolute;
+  }
+  
+  .custom-bottom-modal.ion-modal-showing {
+    --transform: translateY(0);
+  }
+  
+  .button {
+    margin-top: 20%;
+
+    .custom-button {
+        margin: 10px 10px; // Adjust left and right margin
+        @include button-style($primary-color, white);
+    }
+}
+
+  .error-message {
+    color: red;
+    margin-left: 20px;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  

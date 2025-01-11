@@ -1,0 +1,88 @@
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <div class="skip-btn">
+        <p>Skip</p>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="profile-wrapper">
+      <div class="heading">
+        <h1>Profile Details</h1>
+      </div>
+      <div class="profile-form">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="profile-image">
+            <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" hidden />
+            <label for="fileInput">
+              <img src="assets/images/face.png" alt="Avatar" class="avatar" />
+              <!-- <img src="assets/camera-icon.png" alt="Camera" /> -->
+            </label>
+          </div>
+          @if(profileForm.get('avatar')?.invalid && (profileForm.get('avatar')?.touched ||
+          profileForm.get('avatar')?.dirty)){4
+          @if(profileForm.get('avatar')?.hasError('required')){
+
+          <div class="error-message">
+            <p>Avatar is required.</p>
+          </div>
+          }
+          }
+          <ion-input formControlName="firstName" label="First Name" label-placement="floating" fill="outline"
+            placeholder="First Name">
+          </ion-input>
+          @if(profileForm.get('firstName')?.invalid && (profileForm.get('firstName')?.touched ||
+          profileForm.get('firstName')?.dirty)){
+          @if(profileForm.get('firstName')?.hasError('required')){
+
+          <div class="error-message">
+            <p>First name is required.</p>
+          </div>
+          }
+
+          }
+
+          <ion-input formControlName="lastName" label="Last Name" label-placement="floating" fill="outline"
+            placeholder="Last Name">
+          </ion-input>
+          @if(profileForm.get('lastName')?.invalid && (profileForm.get('lastName')?.touched ||
+          profileForm.get('lastName')?.dirty)){
+          @if(profileForm.get('lastName')?.hasError('required')){
+          <div class="error-message">
+            <p>Last name is required.</p>
+          </div>
+          }
+
+          }
+
+          <ion-input [value]="selectedDate" label="Enter Birth Date" label-placement="floating" fill="outline" readonly
+            (click)="openModal()">
+          </ion-input>
+
+          <!-- Modal -->
+          <ion-modal [isOpen]="isModalOpen" [keepContentsMounted]="true" class="custom-bottom-modal">
+            <ng-template>
+              <ion-datetime id="datetime" presentation="date" (ionChange)="onDateChange($event)">
+              </ion-datetime>
+            </ng-template>
+          </ion-modal>
+
+          @if(profileForm.get('birthDate')?.invalid && (profileForm.get('birthDate')?.touched ||
+          profileForm.get('birthDate')?.dirty)){
+          @if(profileForm.get('birthDate')?.hasError('required')){
+          <div class="error-message">
+            <p>Birth date is required.</p>
+          </div>
+          }
+          }
+          <div class="button">
+            <ion-button type="submit" expand="block" fill="clear" class="custom-button"
+              [disabled]="profileForm.invalid">Confirm</ion-button>
+          </div>
+        </form>
+      </div>
+
+    </ion-col>
+  </ion-row>
+</ion-content>

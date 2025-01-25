@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
-
+import { AuthService } from '../services/auth.service';
+import { MobileNumber, User } from '../interface/auth';
+import { AlertsService } from 'src/app/common/services/alerts.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-number',
@@ -16,6 +19,10 @@ export class NumberPage implements OnInit {
   mobileForm!: FormGroup;
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private authservice = inject(AuthService);
+  private alertService = inject(AlertsService);
+  private destroy$ = new Subject<void>();
+
   constructor() { }
 
   ngOnInit() {
@@ -31,16 +38,50 @@ export class NumberPage implements OnInit {
       ]]
     });
   }
-
   onSubmit() {
-    // Concatenate the country code with the mobile number
     if (this.mobileForm.valid) {
-      const fullMobileNumber = this.mobileForm.value.countryCode + this.mobileForm.value.mobileNumber;
-      console.log('Mobile Number with Country Code:', fullMobileNumber);
-      this.router.navigate(['/otp-verify'])
+      const fullMobileNumber = this.mobileForm.value.mobileNumber;
+      this.authservice.registerMobileNumber(fullMobileNumber).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (resp: MobileNumber) => {
+          this.alertService.showSuccessToastmsg(resp.message);
+          this.getUserByMobileNumber(fullMobileNumber);
+          this.router.navigate(['/otp-verify']);
+        },
+        error: (err) => {
+          this.alertService.showToastFailedMsg(err.error.message);
+        }
+      })
     } else {
-      console.log('Form is invalid');
+      console.error('Form is invalid');
     }
   }
+  getUserByMobileNumber(mobileNumber: number) {
+    this.authservice.getUserByMobileNumber(mobileNumber).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (resp: User) => {
+        this.sendOtp(resp.user_id);
+        localStorage.setItem("userId",resp.user_id);
+      },
+      error: (err) => {
+        console.log("err", err);
+      }
+    })
+  }
 
+  sendOtp(user_id:string){
+    this.authservice.sendOtp(user_id).pipe(takeUntil(this.destroy$)).subscribe({
+      next:(resp)=>{
+        localStorage.setItem("otp", resp.otp);
+        this.alertService.showSuccessToastmsg(resp.message);
+      },
+      error:(err)=>{
+        console.log(err)
+        this.alertService.showToastFailedMsg(err.error.message);
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

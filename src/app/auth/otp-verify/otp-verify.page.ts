@@ -4,6 +4,9 @@ import { FormBuilder, FormControl, FormGroup, FormArray, Validators, FormsModule
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
+import { AlertsService } from 'src/app/common/services/alerts.service';
 
 @Component({
   selector: 'app-otp-verify',
@@ -20,14 +23,17 @@ export class OtpVerifyPage implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private navController = inject(NavController);
   private router = inject(Router);
+  private authService = inject(AuthService);
+  private alertService = inject(AlertsService);
+  private destroy$ = new Subject<void>();
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.startTimer();
     this.intializeForm();
   }
-  
+
   goBack() {
     this.navController.back();
   }
@@ -55,7 +61,7 @@ export class OtpVerifyPage implements OnInit, OnDestroy {
   }
 
   // intialize the otp  form 
-  intializeForm(){
+  intializeForm() {
     this.otpForm = this.fb.group({
       otp: this.fb.array(
         new Array(4)
@@ -95,15 +101,24 @@ export class OtpVerifyPage implements OnInit, OnDestroy {
   verifyOtp(): void {
     if (this.otpForm.valid) {
       const otpValue = this.otpControls.value.join('');
-      console.log('Entered OTP:', otpValue);
-      this.router.navigate(['/profile'])
-      // Add your verification logic here
+      const userId = localStorage?.getItem("userId")
+      this.authService.verifyOtp(userId, otpValue).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (resp) => {
+          this.alertService.showSuccessToastmsg(resp.message);
+          this.router.navigate(['/profile'])
+        },
+        error: (err) => {
+          this.alertService.showToastFailedMsg(err.error.message);
+        }
+      })
     }
   }
-  
-    ngOnDestroy() {
-      if (this.timerInterval) {
-        clearInterval(this.timerInterval);
-      }
+
+  ngOnDestroy() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
     }
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

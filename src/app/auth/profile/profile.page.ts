@@ -6,13 +6,14 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { AlertsService } from 'src/app/common/services/alerts.service';
+import { LoaderPage } from 'src/app/common/pages/loader/loader.page';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, RouterModule]
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, RouterModule, LoaderPage]
 })
 export class ProfilePage implements OnInit, OnDestroy {
   profileForm!: FormGroup; // Reactive form group
@@ -24,7 +25,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   private authService = inject(AuthService);
   private alertService = inject(AlertsService);
   private destroy$ = new Subject<void>();
-
+  isLoading = false; 
   constructor() {
 
   }
@@ -66,14 +67,20 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.profileForm.valid) {
+      this.isLoading=true;
       const userId = localStorage.getItem("userId");
       const formdata = this.profileForm.value;
       this.authService.updateProfile(userId, formdata).pipe(takeUntil(this.destroy$)).subscribe({
         next: (res) => {
           this.alertService.showSuccessToastmsg(res.message);
-          this.router.navigate(['/gender'])
+          setTimeout(() => {
+            this.isLoading = false;
+            this.router.navigate(['/gender'])
+          }, 2000);
+  
         },
         error: (err) => {
+          this.isLoading=false;
           this.alertService.showToastFailedMsg(err.error.message);
         }
       })

@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { AlertsService } from 'src/app/common/services/alerts.service';
+import { LoaderPage } from 'src/app/common/pages/loader/loader.page';
 
 @Component({
   selector: 'app-otp-verify',
   templateUrl: './otp-verify.page.html',
   styleUrls: ['./otp-verify.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, LoaderPage]
 })
 export class OtpVerifyPage implements OnInit, OnDestroy {
   timer: string = '01:00';
@@ -26,6 +27,7 @@ export class OtpVerifyPage implements OnInit, OnDestroy {
   private authService = inject(AuthService);
   private alertService = inject(AlertsService);
   private destroy$ = new Subject<void>();
+  isLoading = false; 
 
   constructor() { }
 
@@ -100,14 +102,20 @@ export class OtpVerifyPage implements OnInit, OnDestroy {
 
   verifyOtp(): void {
     if (this.otpForm.valid) {
+      this.isLoading = true; // Show loader
+
       const otpValue = this.otpControls.value.join('');
       const userId = localStorage?.getItem("userId")
       this.authService.verifyOtp(userId, otpValue).pipe(takeUntil(this.destroy$)).subscribe({
         next: (resp) => {
           this.alertService.showSuccessToastmsg(resp.message);
-          this.router.navigate(['/profile'])
-        },
+          setTimeout(() => {
+            this.isLoading = false;
+            this.router.navigate(['/password']);
+          }, 2000);
+          },
         error: (err) => {
+          this.isLoading=false;
           this.alertService.showToastFailedMsg(err.error.message);
         }
       })

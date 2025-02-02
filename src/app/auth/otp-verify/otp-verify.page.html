@@ -4,6 +4,8 @@
 
 
 <ion-content [fullscreen]="true">
+  <app-loader *ngIf="isLoading"></app-loader> <!-- Loader Component -->
+
   <ion-row>
     <ion-col>
       <div class="verify-time-wrapper">

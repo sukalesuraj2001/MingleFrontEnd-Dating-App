@@ -7,13 +7,14 @@ import { AuthService } from '../services/auth.service';
 import { MobileNumber, User } from '../interface/auth';
 import { AlertsService } from 'src/app/common/services/alerts.service';
 import { Subject, takeUntil } from 'rxjs';
+import { LoaderPage } from 'src/app/common/pages/loader/loader.page';
 
 @Component({
   selector: 'app-number',
   templateUrl: './number.page.html',
   styleUrls: ['./number.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, LoaderPage]
 })
 export class NumberPage implements OnInit {
   mobileForm!: FormGroup;
@@ -22,6 +23,8 @@ export class NumberPage implements OnInit {
   private authservice = inject(AuthService);
   private alertService = inject(AlertsService);
   private destroy$ = new Subject<void>();
+  isLoading = false;
+
 
   constructor() { }
 
@@ -40,14 +43,20 @@ export class NumberPage implements OnInit {
   }
   onSubmit() {
     if (this.mobileForm.valid) {
+      this.isLoading = true; // Show loader
       const fullMobileNumber = this.mobileForm.value.mobileNumber;
       this.authservice.registerMobileNumber(fullMobileNumber).pipe(takeUntil(this.destroy$)).subscribe({
         next: (resp: MobileNumber) => {
           this.alertService.showSuccessToastmsg(resp.message);
           this.getUserByMobileNumber(fullMobileNumber);
-          this.router.navigate(['/otp-verify']);
+
+          setTimeout(() => {
+            this.isLoading = false;
+            this.router.navigate(['/otp-verify']);
+          }, 2000);
         },
         error: (err) => {
+          this.isLoading = false; // Hide loader in case of error
           this.alertService.showToastFailedMsg(err.error.message);
         }
       })
@@ -59,7 +68,7 @@ export class NumberPage implements OnInit {
     this.authservice.getUserByMobileNumber(mobileNumber).pipe(takeUntil(this.destroy$)).subscribe({
       next: (resp: User) => {
         this.sendOtp(resp.user_id);
-        localStorage.setItem("userId",resp.user_id);
+        localStorage.setItem("userId", resp.user_id);
       },
       error: (err) => {
         console.log("err", err);
@@ -67,13 +76,13 @@ export class NumberPage implements OnInit {
     })
   }
 
-  sendOtp(user_id:string){
+  sendOtp(user_id: string) {
     this.authservice.sendOtp(user_id).pipe(takeUntil(this.destroy$)).subscribe({
-      next:(resp)=>{
+      next: (resp) => {
         localStorage.setItem("otp", resp.otp);
         this.alertService.showSuccessToastmsg(resp.message);
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err)
         this.alertService.showToastFailedMsg(err.error.message);
       }

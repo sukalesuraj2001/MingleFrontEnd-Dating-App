@@ -6,13 +6,14 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AlertsService } from 'src/app/common/services/alerts.service';
 import { Subject, takeUntil } from 'rxjs';
+import { LoaderPage } from 'src/app/common/pages/loader/loader.page';
 
 @Component({
   selector: 'app-gender',
   templateUrl: './gender.page.html',
   styleUrls: ['./gender.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterModule]
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule, LoaderPage]
 })
 export class GenderPage implements OnInit, OnDestroy {
   private navController = inject(NavController);
@@ -21,19 +22,26 @@ export class GenderPage implements OnInit, OnDestroy {
   private alertService = inject(AlertsService);
   private destroy$ = new Subject<void>();
   selectedGender: string = '';
+  isLoading = false; 
+
 
   constructor() { }
 
   ngOnInit() { }
 
   onSubmit() {
+    this.isLoading=true;
     const userId=localStorage.getItem("userId")
     this.authService.updateGender(userId,this.selectedGender).pipe(takeUntil(this.destroy$)).subscribe({
       next:(resp)=>{
         this.alertService.showSuccessToastmsg(resp.message);
-        this.router.navigate(['/interest'])
+        setTimeout(() => {
+          this.isLoading = false;
+          this.router.navigate(['/interest'])
+        }, 2000);
       },
       error:(err)=>{
+        this.isLoading=false;
         this.alertService.showToastFailedMsg(err.error.message);
       }
     })

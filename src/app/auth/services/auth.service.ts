@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from './../../../environments/environment';
-import { MobileNumber, User } from '../interface/auth';
+import { Login, MobileNumber, User } from '../interface/auth';
 import { Endpoints } from 'src/app/config/endpoints';
 
 @Injectable({
@@ -44,10 +44,20 @@ updateGender(user_id:any, gender:any):Observable<User>{
 }
 // update user interest 
 updateInterest(user_id:any, interests:any):Observable<User>{
-  console.log("interest are", {interests})
   return this.http.post<User>(`${environment.apiUrl}${Endpoints.AUTH.INTEREST}/${user_id}`,{interests});
+  
+}
+// set User password
+setUserPassword(user_id:any, password:string):Observable<User>{
+  return this.http.post<User>(`${environment.apiUrl}${Endpoints.AUTH.PASSWORD}/${user_id}`,{password});
 
 }
+
+login(loginData:Login):Observable<Login>{
+  return this.http.post<Login>(`${environment.apiUrl}${Endpoints.AUTH.LOGIN}`,loginData);
+
+}
+
 
 
 }

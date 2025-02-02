@@ -1,4 +1,5 @@
-<ion-content>
+<ion-content [fullscreen]="true">
+
   <ion-row>
     <ion-col>
       <div class="skip-btn">
@@ -7,6 +8,8 @@
     </ion-col>
   </ion-row>
   <ion-row>
+    <app-loader *ngIf="isLoading"></app-loader> <!-- Loader Component -->
+
     <ion-col class="profile-wrapper">
       <div class="heading">
         <h1>Profile Details</h1>

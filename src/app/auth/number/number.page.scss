@@ -85,6 +85,8 @@ $icon-size: 30px;
   margin-top: 33px;
 
   .custom-button {
+    text-transform: capitalize;
+
     margin: 10px 30px;
     @include button-style($primary-color, white);
   }

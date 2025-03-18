@@ -1,0 +1,132 @@
+-webkit-scrollbar {
+  display: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; // Ensures spacing between items
+  padding: 26px 32px;
+  background-color: #fff; // Optional background
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+
+    img{
+      width: 75%; // Adjust size
+      height: 75%;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .discover {
+    text-align: center;
+    flex-grow: 1; // Pushes other items apart
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  }
+
+  .filter-icon {
+    img {
+      width: 75%; // Adjust size
+      height: 75%;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.users {
+  position: relative;
+  height: calc(78vh - 56px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .user {
+    position: absolute;
+
+    ion-card {
+      position: relative;
+      border-radius: 16px;
+
+      ion-card-content {
+        padding: 0;
+
+        img {
+          width: 80vw;
+          height: 64vh;
+          border-radius: 16px;
+          object-fit: cover;
+          object-position: top;
+          mask-image: linear-gradient((to bottom, #000000, #000000, transparent));
+        }
+
+        ion-item {
+          --padding-start: 0px;
+          position: absolute;
+          left: 0;
+          bottom: 5%;
+          width: 100%;
+          text-align: center;
+          --background: transparent;
+
+          ion-label {
+            h2 {
+              font-size: x-large;
+
+            }
+
+            p {
+              font-size: large;
+            }
+          }
+
+        }
+      }
+    }
+
+
+
+
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    opacity: 0;
+    font-size: 100px;
+  }
+
+
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate((-50%, -50%));
+  width: 100%;
+  text-align: center;
+
+  ion-icon {
+    font-size: 45px;
+  }
+}

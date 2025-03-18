@@ -163,6 +163,7 @@ $icon-size: 30px;
 
     .button {
         .custom-button {
+            text-transform: capitalize;
             background-color: $primary-color;
             color: white;
             border-radius: $button-radius;

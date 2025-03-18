@@ -4,15 +4,15 @@ import { authGuard } from './auth/auth/auth.guard';
 export const routes: Routes = [
   {
     path: 'login',
-    loadComponent: () => import('./auth/login/login.page').then( m => m.LoginPage),canActivate: [authGuard]
+    loadComponent: () => import('./auth/login/login.page').then( m => m.LoginPage),
   },
+  // {
+  //   path: '',
+  //   redirectTo: 'login',
+  //   pathMatch: 'full',
+  // },
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
-  {
-    path: 'home',
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
   {
@@ -52,5 +52,10 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () => import('./dashboard/dashboard/dashboard.page').then( m => m.DashboardPage)
   },
+  {
+    path: 'tabs',
+    loadComponent: () => import('./common/pages/tabs/tabs.page').then( m => m.TabsPage)
+  },
+
 
 ];

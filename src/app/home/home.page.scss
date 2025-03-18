@@ -23,7 +23,7 @@ body {
 .swiper-container {
   width: 100%;
   height: 200px;
-  margin-top: 5rem;
+  margin-top: 30%;
 }
 
 .swiper-slide {
@@ -107,7 +107,7 @@ body {
       @media (prefers-color-scheme: dark) {
         background-color: #bbb;
         &.active {
-          background-color: #f9a8d4;
+          background-color: #E94057;
         }
       }
     }
@@ -152,7 +152,7 @@ body {
 
       // Dark Mode Styling
       @media (prefers-color-scheme: dark) {
-        color: #f9a8d4;
+        color: #E94057;
       }
     }
   }

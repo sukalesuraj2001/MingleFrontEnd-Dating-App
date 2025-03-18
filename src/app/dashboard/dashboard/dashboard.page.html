@@ -1,13 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content >
+  <div class="header">
+    <div class="back-btn">
+      <img src="/assets/images/back.png" alt="Filter Icon">
+    </div>
+    <div class="discover">
+      <h3>Discover</h3>
+    </div>
+    <div class="filter-icon">
+      <img src="/assets/images/filter.png" alt="Filter Icon">
+    </div>
+  </div>
+  
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <div class="users" *ngIf="users.length >0 ; else emptyTemplate">
+    <div class="user" *ngFor="let user of users; let i=index" [style.zIndex]="users.length -i"
+      (touchstart)="touchStart($event)" (touchmove)="touchMove($event,  i)" (touchend)="touchEnd(i)" id="{{'card-'+i}}">
+
+      <ion-card mode="ios">
+
+        <ion-card-content mode="md">
+          <img src="{{user.foto}}" alt="">
+          <ion-item lines="none">
+            <ion-label>
+              <h2>{{user.name}}</h2>
+              <p>{{user.age}}, {{user.distance}} Away </p>
+            </ion-label>
+          </ion-item>
+
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <!-- icons  -->
+    <ion-icon name="heart-dislike" class="icon" color="danger" id="reject-icon"></ion-icon>
+    <ion-icon name="heart" class="icon" color="primary" id="accept-icon"></ion-icon>
+  </div>
+  <ng-template #emptyTemplate>
+    <div class="center">
+      <ion-icon name="checkmark-circle"></ion-icon>
+      <br>
+      <ion-note>All Swaped</ion-note>
+    </div>
+  </ng-template>
+  <app-tabs></app-tabs>
 </ion-content>
+
+

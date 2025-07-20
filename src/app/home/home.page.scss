@@ -132,6 +132,9 @@ body {
     // Dark Mode Styling
     @media (prefers-color-scheme: dark) {
       background-color: #E94057;
+      text-transform: capitalize;
+
+
     }
   }
 }

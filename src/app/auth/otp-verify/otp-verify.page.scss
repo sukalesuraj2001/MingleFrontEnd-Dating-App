@@ -3,7 +3,7 @@ $otp-input-width: 50px;
 $otp-input-height: 50px;
 $otp-input-font-size: 20px;
 $otp-border-color: #E94057;
-$otp-filled-bg: #e94057; 
+$otp-filled-bg: #e94057;
 $otp-focus-border-color: #007bff;
 $otp-focus-shadow-color: rgba(0, 123, 255, 0.25);
 
@@ -73,6 +73,8 @@ $icon-size: 30px;
   margin-bottom: 10px;
 }
 
+
+
 .content {
   margin-bottom: 15px;
 }
@@ -130,7 +132,7 @@ $icon-size: 30px;
     height: 50px;
   }
 
- 
+
 }
 
 .button {
@@ -141,6 +143,29 @@ $icon-size: 30px;
     @include button-style($primary-color, white);
   }
 }
-.resend{
+
+.resend {
   text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .timer {
+    color: white;
+  }
+  .otp-input{
+    border: 1px solid white !important;
+
+  }
+  .custom-back-btn{
+    --border: 2px solid rgb(239, 229, 229);
+    --border-radius: 8px;
+    --padding: 4px;
+    --background: rgba(255, 255, 255, 0.2);
+    color: white;
+    margin: 29px 22px;
+  }
+  .resend {
+    color: $otp-filled-bg;
+  }
+
 }

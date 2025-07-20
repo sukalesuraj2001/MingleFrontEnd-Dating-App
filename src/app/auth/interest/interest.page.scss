@@ -41,23 +41,29 @@ $icon-size: 30px;
     color: #E94057;
     // --padding: 4px;
 }
-.heading-content{
+
+.heading-content {
     margin-left: 30px;
-    p{
+
+    p {
         // color: #;
         font-size: 13px;
     }
 }
+
 .container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns per row */
-    gap: 10px; /* Space between items */
-    max-width: 300px; /* Adjust as needed */
+    grid-template-columns: repeat(2, 1fr);
+    /* Two columns per row */
+    gap: 10px;
+    /* Space between items */
+    max-width: 300px;
+    /* Adjust as needed */
     margin-left: 8%;
     margin-top: 30px;
-  }
-  
-  .interest {
+}
+
+.interest {
     padding: 10px;
     text-align: center;
     border: 1px solid #ccc;
@@ -65,17 +71,42 @@ $icon-size: 30px;
     background-color: white;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .interest.selected {
+}
+
+.interest.selected {
     background-color: red;
     color: white;
-  }
-  .button {
-    margin-top: 20%;
+}
 
+// Button Styling
+.button {
+    margin-top: 33px;
+  
     .custom-button {
-        margin: 10px 10px; // Adjust left and right margin
-        @include button-style($primary-color, white);
+      margin: 0 20px;
+      height: 6vh !important;
+      background-color: #E94057;
+      color: white;
+      border-radius: 8px;
+  
+      &:hover {
+        background-color: #E94057;
+      }
+  
+      // Dark Mode Styling
+      @media (prefers-color-scheme: dark) {
+        background-color: #E94057;
+        text-transform: capitalize;
+  
+  
+      }
+    }
+  }
+
+
+
+@media (prefers-color-scheme: dark) {
+    .interest {
+        background-color: black;
     }
 }

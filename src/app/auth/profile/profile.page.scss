@@ -74,10 +74,12 @@ $icon-size: 30px;
         margin-left: 20px;
         width: 90%;
         margin-top: 20px;
-        // border-radius: 50%;
-        // border: 2px solid grey;
+        border-radius: 4%;
+        border: 1px solid grey;
     }
 }
+
+
 
 
 .custom-bottom-modal {
@@ -94,14 +96,30 @@ $icon-size: 30px;
     --transform: translateY(0);
   }
   
-  .button {
-    margin-top: 20%;
-
+ // Button Styling
+.button {
+    margin-top: 33px;
+  
     .custom-button {
-        margin: 10px 10px; // Adjust left and right margin
-        @include button-style($primary-color, white);
+      margin: 0 20px;
+      height: 6vh !important;
+      background-color: #E94057;
+      color: white;
+      border-radius: 8px;
+  
+      &:hover {
+        background-color: #E94057;
+      }
+  
+      // Dark Mode Styling
+      @media (prefers-color-scheme: dark) {
+        background-color: #E94057;
+        text-transform: capitalize;
+  
+  
+      }
     }
-}
+  }
 
   .error-message {
     color: red;
@@ -109,4 +127,3 @@ $icon-size: 30px;
     font-size: 12px;
     margin-top: 5px;
   }
-  
